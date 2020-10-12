@@ -14,9 +14,7 @@ function argument_is_valid {
 
 function is_leap_year {
 	local year=$1
-	if [[ $(($year % 4)) -eq 0 ]] && [[ $(($year % 100)) -ne 0  ]]; then
-		echo "true";
-	elif [[ $(($year % 4)) -eq 0 ]] && [[ $(($year % 100)) -eq 0  ]]  && [[ $((year % 400)) -eq 0 ]]; then 
+	if (($1 % 4 == 0)) && (($1 % 100 != 0 || $1 % 400 == 0)); then 
 		echo "true";
 	else	
 		echo "false";
