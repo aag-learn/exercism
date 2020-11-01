@@ -10,8 +10,7 @@ function proverb_phrase {
 
 function proverb {
 	local items=("$@")
-	for i in "${!items[@]}"; do
-		[ $i -eq $(( "${#items[@]}" - 1 )) ] && continue
+	for (( i=0; i < $(( $# - 1 )); i++ )); do
 		proverb_phrase "${items[$i]}" "${items[ $(( $i + 1 )) ]}"	
 	done
 	[ $# -gt 0 ] && proverb_closing_phrase "${items[0]}"
@@ -19,7 +18,7 @@ function proverb {
 
 main () {
 	proverb "$@"
-	exit 0	
+	exit 0
 }
 
 main "$@"
