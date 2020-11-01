@@ -14,7 +14,7 @@ function proverb {
 	        [ $i -eq $(( "${#items[@]}" - 1 )) ] && continue
 		proverb_phrase "${items[$i]}" "${items[ $(( $i + 1 )) ]}"	
 	done
-	[ ${#items[@]} -gt 0 ] && proverb_closing_phrase "${items[0]}"
+	[ $# -gt 0 ] && proverb_closing_phrase "${items[0]}"
 }
 
 main () {
