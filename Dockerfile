@@ -8,9 +8,10 @@ RUN adduser --uid ${USERID:-1000} --gecos "" --disabled-password exercism && \
     mkdir exercism-3.0.13-linux-x86_64 && \
     tar xfz exercism-3.0.13-linux-x86_64.tar.gz -C ./exercism-3.0.13-linux-x86_64 && \
     cp exercism-3.0.13-linux-x86_64/exercism /usr/local/bin/ && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir /app && \
-    chown exercism /app && \
-    apt-get clean
+    chown exercism /app
 
 WORKDIR /app
 USER exercism
