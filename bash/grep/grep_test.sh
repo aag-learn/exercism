@@ -75,7 +75,7 @@ teardown() {
 }
 
 @test "One file, one match, print file names flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="paradise-lost.txt"
     pattern="Forbidden"
     flags=(-l)

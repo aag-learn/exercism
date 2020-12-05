@@ -1,21 +1,44 @@
 #!/usr/bin/env bash
 FILES=""
+LFLAG=false
 
 function match() {
     local pattern=$1
     local file=$2
 
     while IFS= read -r line; do
-       [[ $line =~ $pattern ]] && printf '%s\n' "$line"
+        if [[ $line =~ $pattern ]]; then  
+            if [ $LFLAG == 'true' ]; then
+                echo $file
+            else
+                printf '%s\n' "$line"
+            fi
+        fi
     done < "$file"
 } 
 
-main () {
-    local pattern=$1
+
+function process_arguments() {
+    
+    while getopts "l" flag; do
+        case ${flag} in
+            l )
+                LFLAG=true
+                ;;    
+        esac
+    done
+    shift $((OPTIND -1))
+
+    PATTERN=$1
     FILES=($2)
 
+}
+main () {
+
+    process_arguments "$@"
+     
     for file in ${FILES[@]}; do
-        match $pattern $file
+        match $PATTERN $file
     done
 }
 
