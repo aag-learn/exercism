@@ -1,0 +1,16 @@
+FROM debian:stable
+
+ARG USERID
+RUN adduser --uid ${USERID:-1000} --gecos "" --disabled-password exercism && \
+    apt-get update && \
+    apt-get install -y bats vim && \ 
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home/exercism
+USER exercism
+RUN mkdir /home/exercism/src
+
+VOLUME /home/exercism/src
+
+ENTRYPOINT ["/bin/bash"]
