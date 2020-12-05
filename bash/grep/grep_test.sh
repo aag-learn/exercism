@@ -53,7 +53,7 @@ teardown() {
 }
 
 @test "One file, one match, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="2:Of that Forbidden Tree, whose mortal tast"
     pattern="Forbidden"
     flags=(-n)
