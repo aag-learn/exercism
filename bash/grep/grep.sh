@@ -2,6 +2,7 @@
 FILES=""
 LFLAG=false
 NFLAG=false
+IFLAG=false
 
 function match() {
     local pattern=$1
@@ -9,7 +10,8 @@ function match() {
     local linenum=1
 
     while IFS= read -r line; do
-        if [[ $line =~ $pattern ]]; then  
+        #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
+        if [[ ( "$IFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
             if [ $LFLAG == 'true' ]; then
                 echo $file
             else
@@ -27,8 +29,11 @@ function match() {
 
 function process_arguments() {
     
-    while getopts "ln" flag; do
+    while getopts "iln" flag; do
         case ${flag} in
+            i )
+                IFLAG=true
+                ;;
             l )
                 LFLAG=true
                 ;;

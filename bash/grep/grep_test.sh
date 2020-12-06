@@ -64,7 +64,7 @@ teardown() {
 }
 
 @test "One file, one match, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Of that Forbidden Tree, whose mortal tast"
     pattern="FORBIDDEN"
     flags=(-i)
