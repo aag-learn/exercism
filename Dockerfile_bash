@@ -3,7 +3,7 @@ FROM debian:stable
 ARG USERID
 RUN adduser --uid ${USERID:-1000} --gecos "" --disabled-password exercism && \
     apt-get update && \
-    apt-get install -y bats vim && \ 
+    apt-get install -y bats vim git && \ 
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
