@@ -3,11 +3,14 @@ FILES=""
 LFLAG=false
 NFLAG=false
 IFLAG=false
+XFLAG=false
 
 function match() {
     local pattern=$1
     local file=$2
     local linenum=1
+
+    [ "$XFLAG" == "true" ] && pattern="^${pattern}$"
 
     while IFS= read -r line; do
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
@@ -29,7 +32,7 @@ function match() {
 
 function process_arguments() {
     
-    while getopts "iln" flag; do
+    while getopts "ilnx" flag; do
         case ${flag} in
             i )
                 IFLAG=true
@@ -39,6 +42,9 @@ function process_arguments() {
                 ;;
             n )
                 NFLAG=true
+                ;;
+            x )
+                XFLAG=true
                 ;;
         esac
     done
@@ -53,7 +59,7 @@ main () {
     process_arguments "$@"
      
     for file in ${FILES[@]}; do
-        match $PATTERN $file
+        match "$PATTERN" "$file"
     done
 }
 

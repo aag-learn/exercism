@@ -36,7 +36,8 @@ END_PARADISE
 }
 
 teardown() {
-    rm iliad.txt midsummer-night.txt paradise-lost.txt
+    #rm iliad.txt midsummer-night.txt paradise-lost.txt
+    echo ""
 }
 
 # Test grepping a single file
@@ -86,7 +87,7 @@ teardown() {
 }
 
 @test "One file, one match, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="With loss of Eden, till one greater Man"
     pattern="With loss of Eden, till one greater Man"
     flags=(-x)
@@ -97,7 +98,7 @@ teardown() {
 }
 
 @test "One file, one match, multiple flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="9:Of Atreus, Agamemnon, King of men."
     pattern="OF ATREUS, Agamemnon, KIng of MEN."
     flags=(-n -i -x)
@@ -108,7 +109,7 @@ teardown() {
 }
 
 @test "One file, several matches, no flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Nor how it may concern my modesty,
 But I beseech your grace that I may know
 The worst that may befall me in this case,"
@@ -121,7 +122,7 @@ The worst that may befall me in this case,"
 }
 
 @test "One file, several matches, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="3:Nor how it may concern my modesty,
 5:But I beseech your grace that I may know
 6:The worst that may befall me in this case,"
@@ -135,7 +136,7 @@ The worst that may befall me in this case,"
 
 
 @test "One file, several matches, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="may"
     flags=(-x)        
@@ -146,7 +147,7 @@ The worst that may befall me in this case,"
 }
 
 @test "One file, several matches, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Achilles sing, O Goddess! Peleus' son;
 The noble Chief Achilles from the son"
     pattern="ACHILLES"
@@ -173,7 +174,7 @@ That Shepherd, who first taught the chosen Seed"
 }
 
 @test "One file, no matches, various flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="Gandalf"
     flags=(-n -l -x -i)
@@ -184,7 +185,7 @@ That Shepherd, who first taught the chosen Seed"
 }
 
 @test "One file, one match, file flag takes precedence over line flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt"
     pattern="ten"
     flags=(-n -l)
