@@ -159,7 +159,7 @@ The noble Chief Achilles from the son"
 }
 
 @test "One file, several matches, inverted flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Brought Death into the World, and all our woe,
 With loss of Eden, till one greater Man
 Restore us, and regain the blissful Seat,
@@ -196,7 +196,7 @@ That Shepherd, who first taught the chosen Seed"
 }
 
 @test "One file, several matches, inverted and match entire lines flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Achilles sing, O Goddess! Peleus' son;
 His wrath pernicious, who ten thousand woes
 Caused to Achaia's host, sent many a soul

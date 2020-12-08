@@ -3,6 +3,7 @@ FILES=""
 LFLAG=false
 NFLAG=false
 IFLAG=false
+VFLAG=false
 XFLAG=false
 
 function match() {
@@ -14,7 +15,7 @@ function match() {
 
     while IFS= read -r line; do
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
-        if [[ ( "$IFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
+        if [[ ( "$IFLAG" == "false" && "$VFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && "$VFLAG" == "false" && ${line,,} =~ ${pattern,,} ) || ( "$IFLAG" == "false" && "$VFLAG" == "true" && ( ! ${line} =~ ${pattern} ) ) || ( "$IFLAG" == "true" && "$VFLAG" == "true" && ( ! ${line,,} =~ ${pattern,,} ) ) ]]; then  
             if [ $LFLAG == 'true' ]; then
                 echo $file
             else
@@ -32,7 +33,7 @@ function match() {
 
 function process_arguments() {
     
-    while getopts "ilnx" flag; do
+    while getopts "ilnvx" flag; do
         case ${flag} in
             i )
                 IFLAG=true
@@ -42,6 +43,9 @@ function process_arguments() {
                 ;;
             n )
                 NFLAG=true
+                ;;
+            v )
+                VFLAG=true
                 ;;
             x )
                 XFLAG=true
