@@ -216,7 +216,7 @@ Of Atreus, Agamemnon, King of men."
 # Multiple files
             
 @test "Multiple files, one match, no flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Of Atreus, Agamemnon, King of men."
     pattern="Agamemnon"
     flags=()
@@ -227,7 +227,7 @@ Of Atreus, Agamemnon, King of men."
 }
 
 @test "Multiple files, several matches, no flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:Nor how it may concern my modesty,
 midsummer-night.txt:But I beseech your grace that I may know
 midsummer-night.txt:The worst that may befall me in this case,"
@@ -240,7 +240,7 @@ midsummer-night.txt:The worst that may befall me in this case,"
 }
 
 @test "Multiple files, several matches, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:5:But I beseech your grace that I may know
 midsummer-night.txt:6:The worst that may befall me in this case,
 paradise-lost.txt:2:Of that Forbidden Tree, whose mortal tast
@@ -266,7 +266,7 @@ paradise-lost.txt"
 }
 
 @test "Multiple files, several matches, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Caused to Achaia's host, sent many a soul
 iliad.txt:Illustrious into Ades premature,
 iliad.txt:And Heroes gave (so stood the will of Jove)
@@ -286,7 +286,7 @@ paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
 }
 
 @test "Multiple files, several matches, inverted flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Achilles sing, O Goddess! Peleus' son;
 iliad.txt:The noble Chief Achilles from the son
 midsummer-night.txt:If I refuse to wed Demetrius."
@@ -299,7 +299,7 @@ midsummer-night.txt:If I refuse to wed Demetrius."
 }
 
 @test "Multiple files, one match, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:But I beseech your grace that I may know"
     pattern="But I beseech your grace that I may know"
     flags=(-x)
@@ -310,7 +310,7 @@ midsummer-night.txt:If I refuse to wed Demetrius."
 }
 
 @test "Multiple files, one match, multiple flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="paradise-lost.txt:4:With loss of Eden, till one greater Man"
     pattern="WITH LOSS OF EDEN, TILL ONE GREATER MAN"
     flags=(-n -i -x)
@@ -321,7 +321,7 @@ midsummer-night.txt:If I refuse to wed Demetrius."
 }
 
 @test "Multiple files, no matches, various flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="Frodo"
     flags=(-n -l -i -x)
@@ -344,7 +344,7 @@ paradise-lost.txt"
 }
 
 @test "Multiple files, several matches, inverted and match entire lines flags" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Achilles sing, O Goddess! Peleus' son;
 iliad.txt:His wrath pernicious, who ten thousand woes
 iliad.txt:Caused to Achaia's host, sent many a soul

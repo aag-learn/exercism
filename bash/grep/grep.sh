@@ -19,7 +19,14 @@ function match() {
             if [ $LFLAG == 'true' ]; then
                 echo $file
             else
-                if [ $NFLAG == 'true' ]; then
+                if [ ${#FILES[@]} -gt 1 ]; then
+                    if [ $NFLAG == 'true' ]; then
+                        printf '%s:%s:%s\n' "$file" "$linenum" "$line"
+                    else
+                        printf '%s:%s\n' "$file" "$line"
+                    fi
+                    
+                elif [ $NFLAG == 'true' ]; then
                     printf '%s:%s\n' "$linenum" "$line"
                 else
                     printf '%s\n' "$line"            
@@ -55,13 +62,14 @@ function process_arguments() {
     shift $((OPTIND -1))
 
     PATTERN=$1
-    FILES=($2)
+    shift
+    FILES=("$@")
 
 }
 main () {
 
     process_arguments "$@"
-     
+
     for file in ${FILES[@]}; do
         match "$PATTERN" "$file"
     done
