@@ -254,7 +254,7 @@ paradise-lost.txt:6:Sing Heav'nly Muse, that on the secret top"
 }
 
 @test "Multiple files, one match, print file names flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt
 paradise-lost.txt"
     pattern="who"
@@ -332,7 +332,7 @@ midsummer-night.txt:If I refuse to wed Demetrius."
 }
 
 @test "Multiple files, several matches, file flag takes precedence over line number flag" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt
 paradise-lost.txt"
     pattern="who"

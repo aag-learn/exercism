@@ -6,6 +6,8 @@ IFLAG=false
 VFLAG=false
 XFLAG=false
 
+declare -a LFLAG_FILES
+
 function match() {
     local pattern=$1
     local file=$2
@@ -17,7 +19,11 @@ function match() {
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
         if [[ ( "$IFLAG" == "false" && "$VFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && "$VFLAG" == "false" && ${line,,} =~ ${pattern,,} ) || ( "$IFLAG" == "false" && "$VFLAG" == "true" && ( ! ${line} =~ ${pattern} ) ) || ( "$IFLAG" == "true" && "$VFLAG" == "true" && ( ! ${line,,} =~ ${pattern,,} ) ) ]]; then  
             if [ $LFLAG == 'true' ]; then
-                echo $file
+                local IN_LFLAG_FILES=false
+                for element in "${LFLAG_FILES[@]}"; do
+                    [[ "$element" == "$file" ]] && IN_LFLAG_FILES=true
+                done
+                [[ "$IN_LFLAG_FILES" == "false" ]] && LFLAG_FILES+=("$file")
             else
                 if [ ${#FILES[@]} -gt 1 ]; then
                     if [ $NFLAG == 'true' ]; then
@@ -73,6 +79,12 @@ main () {
     for file in ${FILES[@]}; do
         match "$PATTERN" "$file"
     done
+
+    if [ ${#LFLAG_FILES[@]} -gt 0 ]; then
+        for element in ${LFLAG_FILES[@]}; do
+            echo $element
+        done
+    fi
 }
 
 # call main with all of the positional arguments
