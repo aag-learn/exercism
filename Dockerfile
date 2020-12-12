@@ -13,7 +13,7 @@ RUN adduser --uid ${USERID:-1000} --gecos "" --disabled-password exercism && \
     mkdir /app && \
     chown exercism /app
 
-WORKDIR /app
+WORKDIR /home/exercism/src
 USER exercism
 
 ENTRYPOINT ["/usr/local/bin/exercism"]
