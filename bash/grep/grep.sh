@@ -72,19 +72,30 @@ function process_arguments() {
     FILES=("$@")
 
 }
-main () {
 
-    process_arguments "$@"
+function find_pattern_in_files {
 
     for file in ${FILES[@]}; do
         match "$PATTERN" "$file"
     done
 
+}
+
+function display_files_if_lflag_is_set {
     if [ ${#LFLAG_FILES[@]} -gt 0 ]; then
         for element in ${LFLAG_FILES[@]}; do
             echo $element
         done
     fi
+}
+
+main () {
+
+    process_arguments "$@"
+
+    find_pattern_in_files
+
+    display_files_if_lflag_is_set
 }
 
 # call main with all of the positional arguments
