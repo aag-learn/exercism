@@ -5,28 +5,37 @@ NFLAG=false
 IFLAG=false
 VFLAG=false
 XFLAG=false
-
+MATCHES=""
 declare -a MATCHED_FILES
 
-function match() {
+function match {
     local pattern=$1
     local file=$2
     local linenum=1
+    local output=""
 
     [ "$XFLAG" == "true" ] && pattern="^${pattern}$"
 
     while IFS= read -r line; do
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
         if [[ ( "$IFLAG" == "false" && "$VFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && "$VFLAG" == "false" && ${line,,} =~ ${pattern,,} ) || ( "$IFLAG" == "false" && "$VFLAG" == "true" && ( ! ${line} =~ ${pattern} ) ) || ( "$IFLAG" == "true" && "$VFLAG" == "true" && ( ! ${line,,} =~ ${pattern,,} ) ) ]]; then  
-            if [ "$LFLAG" == "true" ]; then
-                add_file_to_matched_files $file
-            else
-                print_match "$file" "$line" $linenum
-            fi
+
+            add_file_to_matched_files $file
+
+            output=`print_match "$file" "$line" $linenum`
+
+            MATCHES+="${output}\n"
         fi
         linenum=$(( $linenum + 1 ))
     done < "$file"
 } 
+
+function print_matches {
+    # See https://www.golinuxcloud.com/bash-concatenate-strings/
+    # to know why we use -en
+    echo -en $MATCHES
+}
+
 
 function print_match {
     local file=$1
@@ -44,7 +53,6 @@ function print_match {
     else
         printf '%s\n' "$line"            
     fi
-
 }
 
 function add_file_to_matched_files {
@@ -108,7 +116,11 @@ main () {
 
     find_pattern_in_files
 
-    display_files_if_lflag_is_set
+    if [[ "$LFLAG" == "true" ]]; then
+        display_files_if_lflag_is_set
+    else
+        print_matches
+    fi
 }
 
 # call main with all of the positional arguments
