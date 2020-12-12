@@ -21,23 +21,31 @@ function match() {
             if [ "$LFLAG" == "true" ]; then
                 add_file_to_matched_files $file
             else
-                if [ ${#FILES[@]} -gt 1 ]; then
-                    if [ $NFLAG == 'true' ]; then
-                        printf '%s:%s:%s\n' "$file" "$linenum" "$line"
-                    else
-                        printf '%s:%s\n' "$file" "$line"
-                    fi
-                    
-                elif [ $NFLAG == 'true' ]; then
-                    printf '%s:%s\n' "$linenum" "$line"
-                else
-                    printf '%s\n' "$line"            
-                fi
+                print_match "$file" "$line" $linenum
             fi
         fi
         linenum=$(( $linenum + 1 ))
     done < "$file"
 } 
+
+function print_match {
+    local file=$1
+    local line=$2
+    local linenum=$3
+    if [ ${#FILES[@]} -gt 1 ]; then
+        if [ $NFLAG == 'true' ]; then
+            printf '%s:%s:%s\n' "$file" "$linenum" "$line"
+        else
+            printf '%s:%s\n' "$file" "$line"
+        fi
+        
+    elif [ $NFLAG == 'true' ]; then
+        printf '%s:%s\n' "$linenum" "$line"
+    else
+        printf '%s\n' "$line"            
+    fi
+
+}
 
 function add_file_to_matched_files {
     local file=$1
