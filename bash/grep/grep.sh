@@ -18,12 +18,8 @@ function match() {
     while IFS= read -r line; do
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
         if [[ ( "$IFLAG" == "false" && "$VFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && "$VFLAG" == "false" && ${line,,} =~ ${pattern,,} ) || ( "$IFLAG" == "false" && "$VFLAG" == "true" && ( ! ${line} =~ ${pattern} ) ) || ( "$IFLAG" == "true" && "$VFLAG" == "true" && ( ! ${line,,} =~ ${pattern,,} ) ) ]]; then  
-            if [ $LFLAG == 'true' ]; then
-                local IN_LFLAG_FILES=false
-                for element in "${LFLAG_FILES[@]}"; do
-                    [[ "$element" == "$file" ]] && IN_LFLAG_FILES=true
-                done
-                [[ "$IN_LFLAG_FILES" == "false" ]] && LFLAG_FILES+=("$file")
+            if [ "$LFLAG" == "true" ]; then
+                add_matched_file_to_output_file_list $file
             else
                 if [ ${#FILES[@]} -gt 1 ]; then
                     if [ $NFLAG == 'true' ]; then
@@ -43,6 +39,15 @@ function match() {
     done < "$file"
 } 
 
+function add_matched_file_to_output_file_list {
+    local file=$1
+    local IN_LFLAG_FILES=false
+    for element in "${LFLAG_FILES[@]}"; do
+        [[ "$element" == "$file" ]] && IN_LFLAG_FILES=true
+    done
+    [[ "$IN_LFLAG_FILES" == "false" ]] && LFLAG_FILES+=("$file")
+
+}
 
 function process_arguments() {
     
