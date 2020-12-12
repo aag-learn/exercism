@@ -102,12 +102,10 @@ function find_pattern_in_files {
 
 }
 
-function display_files_if_lflag_is_set {
-    if [ ${#MATCHED_FILES[@]} -gt 0 ]; then
-        for element in ${MATCHED_FILES[@]}; do
-            echo $element
-        done
-    fi
+function display_matched_files {
+    for element in ${MATCHED_FILES[@]}; do
+        echo $element
+    done
 }
 
 main () {
@@ -117,7 +115,7 @@ main () {
     find_pattern_in_files
 
     if [[ "$LFLAG" == "true" ]]; then
-        display_files_if_lflag_is_set
+        display_matched_files
     else
         print_matches
     fi
