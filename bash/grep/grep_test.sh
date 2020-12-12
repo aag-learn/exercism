@@ -36,8 +36,7 @@ END_PARADISE
 }
 
 teardown() {
-    #rm iliad.txt midsummer-night.txt paradise-lost.txt
-    echo ""
+    rm iliad.txt midsummer-night.txt paradise-lost.txt
 }
 
 # Test grepping a single file
