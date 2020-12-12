@@ -6,7 +6,7 @@ IFLAG=false
 VFLAG=false
 XFLAG=false
 
-declare -a LFLAG_FILES
+declare -a MATCHED_FILES
 
 function match() {
     local pattern=$1
@@ -19,7 +19,7 @@ function match() {
         #if [[ ( "$IFLAG" -eq "false" && $line =~ $pattern ) || ( "$IFLAG" -eq "true" && ${line,,} =~ ${pattern,,} ) ]]; then  
         if [[ ( "$IFLAG" == "false" && "$VFLAG" == "false" && $line =~ $pattern ) || ( "$IFLAG" == "true" && "$VFLAG" == "false" && ${line,,} =~ ${pattern,,} ) || ( "$IFLAG" == "false" && "$VFLAG" == "true" && ( ! ${line} =~ ${pattern} ) ) || ( "$IFLAG" == "true" && "$VFLAG" == "true" && ( ! ${line,,} =~ ${pattern,,} ) ) ]]; then  
             if [ "$LFLAG" == "true" ]; then
-                add_matched_file_to_output_file_list $file
+                add_file_to_matched_files $file
             else
                 if [ ${#FILES[@]} -gt 1 ]; then
                     if [ $NFLAG == 'true' ]; then
@@ -39,13 +39,13 @@ function match() {
     done < "$file"
 } 
 
-function add_matched_file_to_output_file_list {
+function add_file_to_matched_files {
     local file=$1
-    local IN_LFLAG_FILES=false
-    for element in "${LFLAG_FILES[@]}"; do
-        [[ "$element" == "$file" ]] && IN_LFLAG_FILES=true
+    local IN_MATCHED_FILES=false
+    for element in "${MATCHED_FILES[@]}"; do
+        [[ "$element" == "$file" ]] && IN_MATCHED_FILES=true
     done
-    [[ "$IN_LFLAG_FILES" == "false" ]] && LFLAG_FILES+=("$file")
+    [[ "$IN_MATCHED_FILES" == "false" ]] && MATCHED_FILES+=("$file")
 
 }
 
@@ -87,8 +87,8 @@ function find_pattern_in_files {
 }
 
 function display_files_if_lflag_is_set {
-    if [ ${#LFLAG_FILES[@]} -gt 0 ]; then
-        for element in ${LFLAG_FILES[@]}; do
+    if [ ${#MATCHED_FILES[@]} -gt 0 ]; then
+        for element in ${MATCHED_FILES[@]}; do
             echo $element
         done
     fi
