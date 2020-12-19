@@ -5,12 +5,12 @@ function convert_colors_to_numbers() {
     local output=""
     local number=""
     for color in ${colors[@]:0:2}; do
-        number_or_error_message=$(color_to_number $color)
+        number=$(color_to_number $color)
         if [ "$?" != "0" ]; then
             echo "invalid color"
             exit 1
         else
-            output+=$number_or_error_message
+            output+=$number
         fi
 
     done
