@@ -6,10 +6,10 @@
 DATA=(1 2 4 8)
 
 main () {
-  local binary=$(decimal_to_binary $1)
   local encoded=()
   local output=""
 
+  # We need to use double quotes so elements with multiple words separated with spaces count as one
   for I in "${DATA[@]}"; do
     case  $(( $I & $1 )) in
       1 ) encoded+=('wink') ;;
@@ -25,7 +25,6 @@ main () {
   elif [ "${#encoded[@]}" = "1" ]; then
     echo "${encoded[0]}"
   else
-  
     if [ $(( 16 & $1 )) = "0" ]; then  
       for I in "${encoded[@]}"; do
         output+="$I,"
@@ -37,6 +36,7 @@ main () {
       done  
     fi
 
+    # Remove trailing comma
     local len=${#ouput} 
     output=${output::len-1}
 
