@@ -17,19 +17,19 @@ function valid_arguments {
 }
 
 function pling {
-	local number="$@"
+	local number="$1"
 	[ $(( number % 3 )) -eq 0 ] &&  OUTPUT="${OUTPUT}${IS_FACTOR_OF_THREE_SOUND}"
 
 }
 
 function plang {
-	local number="$@"
+	local number="$1"
 	[ $(( number % 5 )) -eq 0 ] && OUTPUT="${OUTPUT}${IS_FACTOR_OF_FIVE_SOUND}"
 
 }
 
 function plong {
-	local number="$@"
+	local number="$1"
 	[ $(( number % 7 )) -eq 0 ] &&  OUTPUT="${OUTPUT}${IS_FACTOR_OF_SEVEN_SOUND}"
 
 }
