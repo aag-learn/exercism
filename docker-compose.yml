@@ -9,3 +9,11 @@ services:
     volumes:
       - ./ruby:/home/exercism/ruby
       - ./.config/exercism:/home/exercism/.config/exercism
+  bash:
+    build:
+      dockerfile: Dockerfile_bash
+      context: .
+    image: exercism-bash
+    volumes:
+      - ./bash:/home/exercism/bash
+      - ./.config/exercism:/home/exercism/.config/exercism

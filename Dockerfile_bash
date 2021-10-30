@@ -3,14 +3,20 @@ FROM debian:stable
 ARG USERID
 RUN adduser --uid ${USERID:-1000} --gecos "" --disabled-password exercism && \
     apt-get update && \
-    apt-get install -y bats vim git && \ 
+    apt-get install -y bats vim git curl dos2unix && \ 
+    curl -L https://github.com/exercism/cli/releases/download/v3.0.13/exercism-3.0.13-linux-x86_64.tar.gz -o /tmp/exercism-3.0.13-linux-x86_64.tar.gz && \
+    cd /tmp/ && \
     apt-get clean && \
+    tar xfz exercism-3.0.13-linux-x86_64.tar.gz && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/exercism
 USER exercism
-RUN mkdir /home/exercism/src
 
-VOLUME /home/exercism/src
+RUN mkdir -p /home/exercism/bin && \
+    cp /tmp/exercism /home/exercism/bin/exercism && \
+    chmod 777 /home/exercism/bin/exercism && \
+    echo 'PATH=$PATH:/home/exercism/bin' >> /home/exercism/.bashrc
+VOLUME /home/exercism/bash
 
 ENTRYPOINT ["/bin/bash"]
