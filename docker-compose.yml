@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  ruby:
+    build:
+      dockerfile: Dockerfile_ruby
+      context: .
+    image: exercism-ruby
+    volumes:
+      - ./ruby:/home/exercism/ruby
+      - ./.config/exercism:/home/exercism/.config/exercism

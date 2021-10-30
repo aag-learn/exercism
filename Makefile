@@ -11,9 +11,8 @@ run_bash:
 
 
 build_ruby:
-	DOCKER_BUILDKIT=1 docker build -f Dockerfile_ruby -t exercism_ruby:latest --build-arg USERID=${USERID} .
+	docker compose build ruby
 
 run_ruby:
-	docker run --name exercism_ruby --rm -ti -v "$(CURDIR)/ruby":/home/exercism/ruby -v "$(CURDIR)/.config/exercism":/home/exercism/.config/exercism exercism_ruby:latest
-
+	docker compose run --rm ruby
 test:
