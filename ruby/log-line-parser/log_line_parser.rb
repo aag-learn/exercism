@@ -1,15 +1,12 @@
 class LogLineParser
   @@pattern = /\[([^\]]+)\]:\s+(.*)/
+  attr_reader :message, :log_level
   def initialize(line)
     @line = line
-  end
-
-  def message
-    $2.strip if @line =~ @@pattern
-  end
-
-  def log_level
-    $1.downcase if @line =~ @@pattern
+    if @line =~ @@pattern
+      @log_level = $1.downcase
+      @message = $2.strip
+    end
   end
 
   def reformat
