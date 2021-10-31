@@ -14,7 +14,7 @@ class BirdCount
   end
 
   def total
-    @birds_per_day.reduce(0){|sum,num| sum + num}
+    @birds_per_day.sum
   end
 
   def busy_days
