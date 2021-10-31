@@ -5,15 +5,7 @@ class AssemblyLine
   end
 
   def production_rate_per_hour
-    if @speed <= 4 
-      base_rate_per_hour
-    elsif @speed <= 8
-      base_rate_per_hour * 0.9
-    elsif @speed == 9
-      base_rate_per_hour * 0.8
-    else
-      base_rate_per_hour * 0.77
-    end
+    RATE_PER_HOUR * @speed * success_rate
   end
 
   def working_items_per_minute
@@ -24,5 +16,14 @@ class AssemblyLine
 
   def base_rate_per_hour
     RATE_PER_HOUR * @speed
+  end
+
+  def success_rate
+    case @speed
+      when 1..4 then 1
+      when 5..8 then 0.9
+      when 9 then 0.8
+      else 0.77
+    end
   end
 end
