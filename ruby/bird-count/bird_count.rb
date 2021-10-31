@@ -22,6 +22,6 @@ class BirdCount
   end
 
   def day_without_birds?
-    @birds_per_day.find{|i| i == 0}
+    @birds_per_day.any?{|i| i == 0}
   end
 end
