@@ -18,7 +18,8 @@ class BirdCount
   end
 
   def busy_days
-    @birds_per_day.reduce(0){ |sum,num| num >= 5 ? sum + 1 : sum }
+    #@birds_per_day.reduce(0){ |sum,num| num >= 5 ? sum + 1 : sum }
+    @birds_per_day.count {|i| i >= 5}
   end
 
   def day_without_birds?
