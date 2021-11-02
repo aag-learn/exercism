@@ -13,10 +13,6 @@ module ResistorColorDuo
     }.freeze
 
     def self.value colors
-        number = ""
-        colors[0..1].each do |color|
-            number += "%d" % @@color_map[color]
-        end
-        number.to_i
+        colors[0..1].sum(''){|color| @@color_map[color].to_s}.to_i
     end
 end
