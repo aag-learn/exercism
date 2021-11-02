@@ -3,6 +3,11 @@ class NotMovieClubMemberError < RuntimeError
 end
 
 class Moviegoer
+  FULL_PRICE    = 15
+  REDUCED_PRICE = 10
+  SENIOR_AGE    = 60
+  ADULT_AGE     = 18
+
   attr_reader :age, :member
 
   def initialize(age, member: false)
@@ -11,11 +16,11 @@ class Moviegoer
   end
 
   def ticket_price
-    age >= 60 ? 10 : 15
+    age >= SENIOR_AGE ? REDUCED_PRICE : FULL_PRICE
   end
 
   def watch_scary_movie?
-    age >= 18
+    age >= ADULT_AGE
   end
 
   # Popcorn is 🍿
