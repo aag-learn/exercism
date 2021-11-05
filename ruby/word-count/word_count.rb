@@ -7,9 +7,8 @@ class Phrase
     end
 
     def word_count
-        phrase.scan(/\b[\w\d']+\b/).reduce({}) do |word_count, word| 
-            key = word.downcase
-            word_count[key] ?  word_count[key] += 1 : word_count[key] = 1 
+        phrase.downcase.scan(/\b[\w\d']+\b/).reduce({}) do |word_count, word| 
+            word_count[word] ?  word_count[word] += 1 : word_count[word] = 1 
             word_count
         end
     end
