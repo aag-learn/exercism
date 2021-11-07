@@ -1,5 +1,5 @@
 class Scrabble
-    @@points = {
+    SCORE = {
         "AEIOULNRST" => 1,
         "DG"         => 2,
         "BCMP"       => 3,
@@ -7,7 +7,7 @@ class Scrabble
         "K"          => 5,
         "JX"         => 8,
         "QZ"         => 10
-    }
+    }.freeze
     attr_reader :word
     def initialize word
         @word = word || ''
@@ -24,6 +24,6 @@ class Scrabble
     private 
 
     def score_for_letter letter
-        @@points.select{|key, value| key.include? letter}.values.first || 0
+        SCORE.select{|key, value| key.include? letter}.values.first || 0
     end
 end
