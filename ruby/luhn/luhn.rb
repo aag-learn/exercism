@@ -5,10 +5,11 @@ module Luhn
         return false if input_without_spaces == "0"
 
         doubled = input_without_spaces.chars.reverse.each_with_index.map do |i, index|
+            number = i.to_i
             if 0 != index % 2
-                i.to_i <= 4 ? i.to_i * 2 : i.to_i * 2 - 9
+                number <= 4 ? number * 2 : number * 2 - 9
             else
-                i.to_i
+                number
             end
         end
 
