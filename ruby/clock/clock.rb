@@ -11,11 +11,11 @@ class Clock
     end
 
     def + clock
-        Clock.new(hour: 0, minute: minute + clock.minute)
+        self.class.new(hour: 0, minute: minute + clock.minute)
     end
 
     def - clock
-        Clock.new(hour: 0, minute: minute - clock.minute)
+        self.class.new(hour: 0, minute: minute - clock.minute)
     end
 
     def <=> clock
