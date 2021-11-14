@@ -1,25 +1,24 @@
 class Clock
-
-    attr_reader :minute, :hour
+    include Comparable
+    attr_reader :minute
 
     def initialize hour: 0, minute: 0
-        @minute = minute % 60
-        @hour   = (hour + (minute / 60.0).floor) % 24
+        @minute = ( minute + (hour * 60) ) % (24*60)
     end
 
     def to_s
-        "%02d:%02d" % [@hour, @minute]
+        "%02d:%02d" % [minute / 60, minute % 60]
     end
 
     def + clock
-        Clock.new(hour: hour + clock.hour, minute: minute + clock.minute)
+        Clock.new(hour: 0, minute: minute + clock.minute)
     end
 
     def - clock
-        Clock.new(hour: hour - clock.hour, minute: minute - clock.minute)
+        Clock.new(hour: 0, minute: minute - clock.minute)
     end
 
-    def == clock
-        hour == clock.hour and minute == clock.minute
+    def <=> clock
+        minute <=> clock.minute
     end
 end
