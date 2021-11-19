@@ -1,29 +1,28 @@
 module TwelveDays
     PRESENTS = [
-        "Partridge in a Pear Tree",
-        "Turtle Doves",
-        "French Hens",
-        "Calling Birds",
-        "Gold Rings",
-        "Geese-a-Laying",
-        "Swans-a-Swimming",
-        "Maids-a-Milking",
-        "Ladies Dancing",
-        "Lords-a-Leaping",
-        "Pipers Piping",
-        "Drummers Drumming"
+        "a Partridge in a Pear Tree",
+        "two Turtle Doves",
+        "three French Hens",
+        "four Calling Birds",
+        "five Gold Rings",
+        "six Geese-a-Laying",
+        "seven Swans-a-Swimming",
+        "eight Maids-a-Milking",
+        "nine Ladies Dancing",
+        "ten Lords-a-Leaping",
+        "eleven Pipers Piping",
+        "twelve Drummers Drumming"
     ]
-    NUMBERS = ['a', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
     ORDINAL = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth']
     
     def self.song 
         song = []
         PRESENTS.each_with_index do |item, i|
             if i == 0 
-                song.push "On the #{ORDINAL[i]} day of Christmas my true love gave to me: #{NUMBERS[i]} #{PRESENTS[i]}."
+                song.push "On the #{ORDINAL[i]} day of Christmas my true love gave to me: #{PRESENTS[i]}."
             else
-                previous = (1..i).map{|i| "#{NUMBERS[i]} #{PRESENTS[i]}"}.reverse.join(', ')
-                song.push "On the #{ORDINAL[i]} day of Christmas my true love gave to me: #{previous}, and #{NUMBERS[0]} #{PRESENTS[0]}."
+                presents = (1..i).map{|i| "#{PRESENTS[i]}"}.reverse.join(', ') + ", and #{PRESENTS[0]}"
+                song.push "On the #{ORDINAL[i]} day of Christmas my true love gave to me: #{presents}."
             end
         end
         song.join("\n\n")+"\n"
