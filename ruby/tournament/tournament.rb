@@ -8,14 +8,10 @@ class Tournament
 
     def formatted_results
         head = "Team                           | MP |  W |  D |  L |  P\n"
-        body = results.
-                map{ |k,v| [k, v] }.
-                #sort{ |a,b| a[1][:points] != b[1][:points] ? b[1][:points]<=>a[1][:points] : (a[0]<=>b[0]) }.
-                sort_by{ |item| [-item[1][:points], item[0]] }.
-                map do |item|
-                    key = item[0]
-                    values = item[1]
-                    "%-31s|%3d |%3d |%3d |%3d |%3d" % [ key, values[:played], values[:wins], values[:draw], values[:loss], values[:points] ]
+        body = teams.
+                sort_by{ |team| [-team[:points], team[:name]] }.
+                map do |team|
+                    "%-31s|%3d |%3d |%3d |%3d |%3d" % [ team[:name], team[:played], team[:wins], team[:draw], team[:loss], team[:points] ]
                 end.join("\n")
         if body.empty?
             head
@@ -30,12 +26,12 @@ class Tournament
 
     private
     
-    attr_accessor :results
+    attr_accessor :teams
     attr_reader   :input
 
     def compute 
         # Hash default values. See https://medium.com/klaxit-techblog/a-headache-in-ruby-hash-default-values-bf2706660392
-        self.results = Hash.new { |hash, key| hash[key] = {wins: 0, loss: 0, draw: 0, played: 0, points: 0} }
+        results = Hash.new { |hash, key| hash[key] = {name: key, wins: 0, loss: 0, draw: 0, played: 0, points: 0} }
         
         input.split("\n") do |line|
             local_team, visitor_team, result = line.split(';')
@@ -55,6 +51,6 @@ class Tournament
             end
         end
         results.each{|k, v| v[:points] = v[:wins]*3 + v[:draw] }
-
+        self.teams = results.values
     end
 end
