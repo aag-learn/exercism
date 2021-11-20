@@ -35,9 +35,6 @@ class Tournament
         
         input.split("\n") do |line|
             local_team, visitor_team, result = line.split(';')
-            results[local_team][:played] += 1
-            results[visitor_team][:played] += 1
-            
             case result
             when 'win' then 
                 results[local_team][:wins] += 1
@@ -50,7 +47,10 @@ class Tournament
                 results[visitor_team][:wins] += 1
             end
         end
-        results.each{|k, v| v[:points] = v[:wins]*3 + v[:draw] }
-        self.teams = results.values
+        self.teams = results.map do |k, v| 
+            v[:points] = v[:wins]*3 + v[:draw] 
+            v[:played] = v[:wins] + v[:draw] + v[:loss]
+            v
+        end
     end
 end
