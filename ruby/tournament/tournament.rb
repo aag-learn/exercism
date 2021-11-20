@@ -10,11 +10,12 @@ class Tournament
         head = "Team                           | MP |  W |  D |  L |  P\n"
         body = results.
                 map{ |k,v| [k, v] }.
-                sort{ |a,b| a[1][:points] != b[1][:points] ? b[1][:points]<=>a[1][:points] : (a[0]<=>b[0]) }.
+                #sort{ |a,b| a[1][:points] != b[1][:points] ? b[1][:points]<=>a[1][:points] : (a[0]<=>b[0]) }.
+                sort_by{ |item| [-item[1][:points], item[0]] }.
                 map do |item|
                     key = item[0]
-                    value = item[1]
-                    "%-31s|%3d |%3d |%3d |%3d |%3d" % [ key, value[:played], value[:wins], value[:draw], value[:loss], value[:points] ]
+                    values = item[1]
+                    "%-31s|%3d |%3d |%3d |%3d |%3d" % [ key, values[:played], values[:wins], values[:draw], values[:loss], values[:points] ]
                 end.join("\n")
         if body.empty?
             head
