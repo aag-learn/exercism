@@ -14,38 +14,14 @@ class SpaceAge
         @seconds = seconds
     end
 
-    def on_mercury
-        years_on :mercury
+    def method_missing method_name
+        if /on_(?<planet>\w+)/ =~ method_name 
+            send(:years_on, planet.to_sym)
+        else
+            super
+        end
     end
 
-    def on_venus
-        years_on :venus
-    end
-
-    def on_earth
-        years_on :earth
-    end
-
-    def on_mars
-        years_on :mars
-    end
-
-    def on_jupiter
-        years_on :jupiter
-    end
-
-    def on_saturn
-        years_on :saturn
-    end
-
-    def on_uranus
-        years_on :uranus
-    end
-
-    def on_neptune
-        years_on :neptune
-    end
-    
     private 
 
     attr_reader :seconds
