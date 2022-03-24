@@ -14,7 +14,7 @@ class Anagram
     attr_reader :word, :sorted_word
 
     def get_sorted_word word
-        word.downcase.chars.sort.join
+        word.downcase.chars.sort
     end
 
     def is_an_anagram? string
