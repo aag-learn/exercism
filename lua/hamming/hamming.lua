@@ -8,10 +8,7 @@ function Hamming.compute(a,b)
 	end
 
 	for i =1, #a do
-		if( a:sub(i,i) ~= b:sub(i,i) )
-		then
-			distance = distance + 1
-		end
+		distance = distance + ( a:sub(i,i) == b:sub(i,i) and 0 or 1 )
 	end
 	return distance
 end
