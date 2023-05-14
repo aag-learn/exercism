@@ -1,0 +1,49 @@
+FROM ubuntu:latest
+
+ARG USER_ID
+ARG USER_NAME
+ARG GROUP_ID
+ARG GROUP_NAME
+RUN ( if ( ! getent group $GROUP_ID ); then addgroup $GROUP_NAME --gid $GROUP_ID; fi ) && \
+    adduser --disabled-password --gecos "" $USER_NAME --uid $USER_ID --gid $GROUP_ID && \
+    # echo "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe" >> /etc/apt/sources.list.d/universe.list && \
+    apt-get update -qq && \
+    apt-get upgrade -qq && \
+    apt-get install -y bash git vim lua5.3 lua-busted curl && \ 
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install neovim
+ARG CUSTOM_NVIM_PATH=/usr/local/bin/nvim
+ENV TZ=Europe/Madrid
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update && apt-get -yq install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen \
+    && git clone --depth 1 --branch stable --single-branch https://github.com/neovim/neovim \
+    && cd neovim \
+    && make CMAKE_BUILD_TYPE=RelWithDebInfo \
+    && make install \
+    && update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110 \
+    && update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110 \
+    && update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110 \
+    && update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110 \
+    && update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110 \
+    && cd .. \
+    && rm -rf neovim \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log]
+
+WORKDIR /home/${USER_NAME}
+USER ${USER_NAME}
+RUN mkdir -p /home/${USER_NAME}/bin && \
+    curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-linux-x86_64.tar.gz -o /tmp/exercism-3.1.0-linux-x86_64.tar.gz && \
+    cd /tmp/ && \
+    tar xfz exercism-3.1.0-linux-x86_64.tar.gz && \
+    cp /tmp/exercism /home/${USER_NAME}/bin/exercism && \
+    chmod 777 /home/${USER_NAME}/bin/exercism && \
+    echo "PATH=$PATH:$HOME/bin" >> $HOME/.bashrc
+
+VOLUME /home/${USER_NAME}/src
+
+ENTRYPOINT ["/bin/bash"]
