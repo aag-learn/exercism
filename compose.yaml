@@ -1,4 +1,16 @@
+x-volumes: &common-volumes
+  - local:/home/${USER_NAME}/.local        
+  - ./.config/exercism:/home/${USER_NAME}/.config/exercism
+  - $HOME/.config/nvim:/home/${USER_NAME}/.config/nvim
+  - oh-my-zsh:/home/${USER_NAME}/.oh-my-zsh
+  - asdf:/home/${USER_NAME}/.asdf
+x-environment: &common-environment
+  USER_NAME: ${USER_NAME}
+  GROUP_NAME: ${GROUP_NAME}
+
 services:
+
+
   ruby:
     build:
       dockerfile: Dockerfile_ruby
@@ -12,19 +24,32 @@ services:
       dockerfile: Dockerfile_bash
       context: .
     image: exercism-bash
-    volumes:
+    volumes: 
       - ./bash:/home/exercism/bash
       - ./.config/exercism:/home/exercism/.config/exercism
-  lua:
+  lua: &lua
     build:
       dockerfile: Dockerfile_lua
       context: .
       args:
         USER_NAME: ${USER_NAME:-exercism}
-        USER_ID: ${USER_ID:-10000}
-        GROUP_NAME: ${GROUP_NAME:-exercism}
-        GROUP_ID: ${GROUP_ID:-10000}       
     image: exercism-lua
-    volumes:
-      - ./lua:/home/${USER_NAME}/exercism/lua
-      - ./.config/exercism:/home/${USER_NAME}/.config/exercism
+    volumes: *common-volumes
+    environment: *common-environment
+  
+  fix_lua:
+    <<: *lua
+    user: "0"
+    command:
+      - "chown"
+      - "${USER_NAME}:${GROUP_NAME}"
+      - "/home/${USER_NAME}/.config"
+      - "/home/${USER_NAME}/.config/nvim"
+      - "/home/${USER_NAME}/.config/exercism"
+      - "/home/${USER_NAME}/exercism/lua"
+      - "/home/${USER_NAME}/.local"
+      - "/home/${USER_NAME}/.oh-my-zsh"
+volumes:
+  local: # A volume to store nvim data  
+  oh-my-zsh: # A volume to store oh-my-zsh data
+  asdf: # A volume to cache asdf stuff
