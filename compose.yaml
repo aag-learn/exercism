@@ -1,12 +1,14 @@
 x-volumes: &common-volumes
-  - local:/home/${USER_NAME}/.local        
-  - ./.config/exercism:/home/${USER_NAME}/.config/exercism
-  - $HOME/.config/nvim:/home/${USER_NAME}/.config/nvim
-  - oh-my-zsh:/home/${USER_NAME}/.oh-my-zsh
-  - asdf:/home/${USER_NAME}/.asdf
+  volumes:
+    - local:/home/${USER_NAME}/.local        
+    - ./.config/exercism:/home/${USER_NAME}/.config/exercism
+    - $HOME/.config/nvim:/home/${USER_NAME}/.config/nvim
+    - oh-my-zsh:/home/${USER_NAME}/.oh-my-zsh
+    - asdf:/home/${USER_NAME}/.asdf
+    - ./lua/:/home/${USER_NAME}/exercism/lua
 x-environment: &common-environment
-  USER_NAME: ${USER_NAME}
-  GROUP_NAME: ${GROUP_NAME}
+    USER_NAME: ${USER_NAME}
+    GROUP_NAME: ${GROUP_NAME}
 
 services:
 
@@ -28,13 +30,14 @@ services:
       - ./bash:/home/exercism/bash
       - ./.config/exercism:/home/exercism/.config/exercism
   lua: &lua
+    <<: *common-volumes
     build:
       dockerfile: Dockerfile_lua
       context: .
       args:
         USER_NAME: ${USER_NAME:-exercism}
     image: exercism-lua
-    volumes: *common-volumes
+    #volumes:
     environment: *common-environment
   
   fix_lua:

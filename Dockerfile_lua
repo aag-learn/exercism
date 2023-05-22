@@ -9,5 +9,8 @@ RUN mkdir -p /home/${USER_NAME}/bin && \
     cp /tmp/exercism /home/${USER_NAME}/bin/exercism && \
     chmod 777 /home/${USER_NAME}/bin/exercism && \
     echo "path+=('/home/${USER_NAME}/bin')" >> $HOME/.zshrc
+SHELL ["/usr/bin/zsh", "-i", "-c"]
+RUN luarocks install busted && \
+    asdf reshim
 
 VOLUME /home/${USER_NAME}/src
