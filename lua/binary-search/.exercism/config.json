@@ -1,0 +1,22 @@
+{
+  "authors": [
+    "ryanplusplus"
+  ],
+  "contributors": [
+    "aarti"
+  ],
+  "files": {
+    "solution": [
+      "binary-search.lua"
+    ],
+    "test": [
+      "binary-search_spec.lua"
+    ],
+    "example": [
+      ".meta/example.lua"
+    ]
+  },
+  "blurb": "Implement a binary search algorithm.",
+  "source": "Wikipedia",
+  "source_url": "http://en.wikipedia.org/wiki/Binary_search_algorithm"
+}
