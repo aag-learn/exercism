@@ -24,3 +24,9 @@ run_ruby:
 
 build_lua:
 	 USER_NAME=${USER_NAME} USER_ID=${USER_ID}  GROUP_NAME=${GROUP_NAME} GROUP_ID=${GROUP_ID} docker compose build lua
+build_rust:
+	 USER_NAME=${USER_NAME} USER_ID=${USER_ID}  GROUP_NAME=${GROUP_NAME} GROUP_ID=${GROUP_ID} docker compose build rust
+fix_rust:
+	USER_NAME=${USER_NAME} USER_ID=${USER_ID}  GROUP_NAME=${GROUP_NAME} GROUP_ID=${GROUP_ID} docker compose run -u root --rm rust chown ${USER_ID}:${GROUP_ID} /home/${USER_NAME}/exercism/rust
+run_rust:
+	 USER_NAME=${USER_NAME} USER_ID=${USER_ID}  GROUP_NAME=${GROUP_NAME} GROUP_ID=${GROUP_ID} docker compose run --rm rust

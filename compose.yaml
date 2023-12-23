@@ -6,6 +6,7 @@ x-volumes: &common-volumes
     - oh-my-zsh:/home/${USER_NAME}/.oh-my-zsh
     - asdf:/home/${USER_NAME}/.asdf
     - ./lua/:/home/${USER_NAME}/exercism/lua
+    - ./rust/:/home/${USER_NAME}/exercism/rust
 x-environment: &common-environment
     USER_NAME: ${USER_NAME}
     GROUP_NAME: ${GROUP_NAME}
@@ -37,6 +38,17 @@ services:
       args:
         USER_NAME: ${USER_NAME:-exercism}
     image: exercism-lua
+    #volumes:
+    environment: *common-environment
+  
+  rust: &rust
+    <<: *common-volumes
+    build:
+      dockerfile: Dockerfile_rust
+      context: .
+      args:
+        USER_NAME: ${USER_NAME:-exercism}
+    image: exercism-rust
     #volumes:
     environment: *common-environment
   

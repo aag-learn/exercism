@@ -1,0 +1,14 @@
+FROM lazyvim
+
+ARG USER_NAME
+
+RUN mkdir -p /home/${USER_NAME}/bin && \
+    curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-linux-x86_64.tar.gz -o /tmp/exercism-3.2.0-linux-x86_64.tar.gz && \
+    cd /tmp/ && \
+    tar xfz exercism-3.2.0-linux-x86_64.tar.gz && \
+    cp /tmp/exercism /home/${USER_NAME}/bin/exercism && \
+    chmod 777 /home/${USER_NAME}/bin/exercism && \
+    echo "path+=('/home/${USER_NAME}/bin')" >> $HOME/.zshrc
+SHELL ["/usr/bin/zsh", "-i", "-c"]
+
+VOLUME /home/${USER_NAME}/src
