@@ -1,6 +1,7 @@
 use std::fmt::Display;
 
 const MINUTES_IN_CLOCK: i32 = 24 * 60;
+const MINUTES_PER_HOUR: i32 = 60;
 #[derive(Debug, PartialEq)]
 pub struct Clock {
     minutes: i32,
@@ -18,18 +19,15 @@ impl Clock {
             minutes: (self.minutes + minutes).rem_euclid(MINUTES_IN_CLOCK),
         }
     }
-
-    fn hours(&self) -> i32 {
-        self.minutes / 60
-    }
-
-    fn display_minutes(&self) -> i32 {
-        self.minutes - self.hours() * 60
-    }
 }
 
 impl Display for Clock {
     fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(fmt, "{:0>2}:{:0>2}", self.hours(), self.display_minutes())
+        write!(
+            fmt,
+            "{:0>2}:{:0>2}",
+            self.minutes / MINUTES_PER_HOUR,
+            self.minutes % MINUTES_PER_HOUR
+        )
     }
 }
