@@ -8,13 +8,14 @@ pub fn verse(n: u32) -> String {
 }
 
 pub fn sing(start: u32, end: u32) -> String {
-    let mut song: String = String::from("");
-    for i in (end..=start).rev() {
-        let new_verse = verse(i);
-        song.push_str(&new_verse);
-        if i != end {
-            song.push_str("\n");
-        }
-    }
-    song
+    // Refactoring using the solution from dericy
+    // See their solution here: https://exercism.org/tracks/rust/exercises/beer-song/solutions/dericy
+    (end..=start)
+        .rev()
+        // Map expects something that takes one argument
+        // So instead of .map(|x| { verse(x) })
+        // we can just pass verse as the argument!!
+        .map(verse)
+        .collect::<Vec<_>>()
+        .join("\n")
 }
