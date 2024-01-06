@@ -18,8 +18,12 @@ macro_rules! planet {
         #[derive(Debug)]
         pub struct $name {}
         impl $name {
+            pub const RELATIVE_PERIOD: f64 = $relative_period;
             pub fn years_during(d: &Duration) -> f64 {
-                d.seconds as f64 / (EARTH_ORBITAL_PERIOD * $relative_period)
+                d.seconds as f64 / Self::period()
+            }
+            pub fn period() -> f64 {
+                EARTH_ORBITAL_PERIOD * Self::RELATIVE_PERIOD
             }
         }
     };
