@@ -7,22 +7,15 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Comparison {
-    if _first_list == _second_list {
-        Comparison::Equal
-    } else if (_first_list.len() < _second_list.len()) && contains_slice(_second_list, _first_list)
-    {
-        Comparison::Sublist
-    } else if (_first_list.len() > _second_list.len()) && contains_slice(_first_list, _second_list)
-    {
-        Comparison::Superlist
-    } else {
-        Comparison::Unequal
+    match (_first_list.len(), _second_list.len()) {
+        (0, 0) => Comparison::Equal,
+        (0, _) => Comparison::Sublist,
+        (_, 0) => Comparison::Superlist,
+        (n, m) if n < m && _second_list.windows(n).any(|x| x == _first_list) => Comparison::Sublist,
+        (n, m) if n > m && _first_list.windows(m).any(|x| x == _second_list) => {
+            Comparison::Superlist
+        }
+        (n, m) if n == m && _first_list == _second_list => Comparison::Equal,
+        _ => Comparison::Unequal,
     }
-}
-
-fn contains_slice<T: PartialEq>(list: &[T], slice: &[T]) -> bool {
-    if slice.is_empty() {
-        return true;
-    }
-    list.windows(slice.len()).any(|x| x == slice)
 }
