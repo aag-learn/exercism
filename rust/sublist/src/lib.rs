@@ -24,12 +24,5 @@ fn contains_slice<T: PartialEq>(list: &[T], slice: &[T]) -> bool {
     if slice.is_empty() {
         return true;
     }
-    let mut i = 0;
-    let last = list.len() - slice.len();
-    let mut found = false;
-    while !found && i <= last {
-        found = &list[i..(i + slice.len())] == slice;
-        i += 1;
-    }
-    found
+    list.windows(slice.len()).any(|x| x == slice)
 }
