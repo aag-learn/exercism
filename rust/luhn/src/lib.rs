@@ -1,6 +1,6 @@
 /// Check a Luhn checksum.
 pub fn is_valid(code: &str) -> bool {
-    let code_without_spaces: Vec<char> = code.chars().filter(|&x| x != ' ').collect();
+    let code_without_spaces: Vec<char> = code.chars().filter(|&x| !x.is_whitespace()).collect();
 
     let result: Option<u32> = code_without_spaces
         .iter()
@@ -12,9 +12,9 @@ pub fn is_valid(code: &str) -> bool {
             (_, Some(x)) => Some(x),
             (_, None) => None,
         })
-        .fold(Some(0), |acc, digit| match (acc, digit) {
-            (Some(acc), Some(digit)) => Some(acc + digit),
-            (_, _) => None,
+        .try_fold(0, |acc, digit| match (acc, digit) {
+            (acc, Some(digit)) => Some(acc + digit),
+            (_, None) => None,
         });
     match result {
         None => false,
