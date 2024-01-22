@@ -10,8 +10,5 @@ pub fn is_valid(code: &str) -> bool {
                 Some(x) if x * 2 > 9 => Some((sum + (x * 2 - 9), count + 1)),
                 Some(x) => Some((sum + x * 2, count + 1)),
             });
-    match result {
-        Some((sum, count)) if count > 1 && sum % 10 == 0 => true,
-        _ => false,
-    }
+    matches!(result, Some((sum, count)) if count > 1 && sum % 10 == 0)
 }
