@@ -1,14 +1,20 @@
 use itertools::Itertools;
 use std::collections::HashSet;
 
-// Provide two implementations, one using a vector an another one using
-// a HashSet. I was curious about which of the two might perform better,
+// Provide implementations, one using a vector, another one using
+// a HashSet and a third one that I saw in the community solutions.
+// I was curious about which of the two might perform better,
 // so I also added some bechmarks. Apparently, the HashSet version performs
 // slightly better:
-// test bench_mid_hashset  ... bench:     267,133 ns/iter (+/- 9,473)
-// test bench_mid_vector   ... bench:     321,310 ns/iter (+/- 16,205)
-// test bench_tiny_hashset ... bench:         139 ns/iter (+/- 5)
-// test bench_tiny_vector  ... bench:         215 ns/iter (+/- 30)
+// test bench_large_hashset ... bench:   3,006,290 ns/iter (+/- 132,081)
+// test bench_large_simple  ... bench:   4,080,741 ns/iter (+/- 223,710)
+// test bench_large_vector  ... bench:   4,091,591 ns/iter (+/- 367,818)
+// test bench_mid_hashset   ... bench:     258,314 ns/iter (+/- 8,254)
+// test bench_mid_simple    ... bench:     296,572 ns/iter (+/- 24,528)
+// test bench_mid_vector    ... bench:     296,376 ns/iter (+/- 13,966)
+// test bench_tiny_hashset  ... bench:         134 ns/iter (+/- 6)
+// test bench_tiny_simple   ... bench:         220 ns/iter (+/- 7)
+//test bench_tiny_vector   ... bench:         220 ns/iter (+/- 13)
 //
 pub fn sum_of_multiples(limit: u32, factors: &[u32]) -> u32 {
     sum_of_multiples_hashset(limit, factors)
@@ -38,4 +44,10 @@ pub fn sum_of_multiples_hashset(limit: u32, factors: &[u32]) -> u32 {
         });
     });
     answers.iter().sum()
+}
+
+pub fn sum_of_multiples_simple(limit: u32, factors: &[u32]) -> u32 {
+    (1..limit)
+        .filter(|i| factors.iter().any(|f| f != &0 && i % f == 0))
+        .sum()
 }
