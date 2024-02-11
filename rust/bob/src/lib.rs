@@ -1,5 +1,5 @@
-use regex::Regex;
-use regex::RegexSet;
+//use regex::Regex;
+//use regex::RegexSet;
 
 pub fn reply(message: &str) -> &str {
     reply_no_regexp(message)
@@ -27,6 +27,8 @@ pub fn reply_no_regexp(message: &str) -> &str {
 // The test pass but the solution times out in the servers.
 // Mentor told me it was due to using external crates. They might take a
 // log time to compile. It's known issue in the rust track.
+// It's commented out so it doesn't compile
+/*
 pub fn reply_regexp(message: &str) -> &str {
     let set = RegexSet::new([
         r"[A-Z]+\?\s*$",   // 0: Shouting a question
@@ -48,3 +50,4 @@ pub fn reply_regexp(message: &str) -> &str {
         _ => "Whatever.",
     }
 }
+*/
