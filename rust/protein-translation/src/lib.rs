@@ -4,6 +4,8 @@ pub struct CodonsInfo<'a> {
     map: HashMap<&'a str, &'a str>,
 }
 
+const STOP_CODONS: [&str; 3] = ["UAA", "UAG", "UGA"];
+
 impl<'a> CodonsInfo<'a> {
     pub fn name_for(&self, name: &str) -> Option<&'a str> {
         match self.map.get(name) {
@@ -18,21 +20,25 @@ impl<'a> CodonsInfo<'a> {
         }
         let mut result: Vec<&str> = vec![];
 
-        let mut cursor = 3;
-
+        let mut start = 0;
+        let mut end = 3;
         loop {
-            match self.name_for(&rna[cursor - 3..cursor]) {
-                Some(protein) => {
-                    if protein == "stop codon" {
-                        break;
-                    } else {
-                        result.push(protein);
-                    }
+            let codon = &rna[start..end];
 
-                    match rna.len() - cursor {
-                        n if n == 0 => break,      // End of rna string reached
+            if STOP_CODONS.contains(&codon) {
+                break;
+            }
+            match self.name_for(codon) {
+                Some(protein) => {
+                    result.push(protein);
+
+                    match rna.len() - end {
+                        0 => break,                // End of rna string reached
                         n if n < 3 => return None, // Wrong length!!
-                        _ => cursor += 3,          // Continue processing...
+                        _ => {
+                            start = end;
+                            end += 3;
+                        }
                     }
                 }
                 None => return None,
