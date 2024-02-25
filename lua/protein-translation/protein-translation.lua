@@ -21,23 +21,17 @@ local function translate_codon(codon)
 end
 
 local function translate_rna_strand(rna_strand)
-	local start_at = 1
-	local end_at = 3
-	local length = rna_strand:len()
+	if #rna_strand % 3 ~= 0 then
+		error("Incomplete sequence!!")
+	end
+
 	local result = {}
-	while end_at <= length do
-		local slice = rna_strand:sub(start_at, end_at)
-		local protein = translate_codon(slice)
+	for codon in rna_strand:gmatch("...") do
+		local protein = translate_codon(codon)
 		if protein == "STOP" then
-			return result
+			break
 		else
 			table.insert(result, protein)
-			if length - end_at == 0 or length - end_at > 2 then
-				start_at = end_at + 1
-				end_at = end_at + 3
-			else
-				error("Incomplete sequence!!")
-			end
 		end
 	end
 
