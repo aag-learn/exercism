@@ -77,3 +77,11 @@ fn camelcase() {
     let expected = "HTML";
     assert_eq!(output, expected);
 }
+
+#[test]
+fn single_word_camelcase() {
+    let input = "mySuperAcronym";
+    let output = acronym::abbreviate(input);
+    let expected = "MSA";
+    assert_eq!(output, expected);
+}
