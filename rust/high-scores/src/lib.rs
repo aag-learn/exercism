@@ -3,7 +3,7 @@ pub struct HighScores<'a> {
 }
 
 impl<'a> HighScores<'a> {
-    pub fn scores(&self) -> &[u32] {
+    pub fn scores(&self) -> &'a [u32] {
         self.scores
     }
     pub fn new(scores: &'a [u32]) -> Self {
