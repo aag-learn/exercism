@@ -38,7 +38,7 @@ sum_of_squares() {
 
 difference() {
 	local number=$1
-	echo "($(square_of_sum $number) - $(sum_of_squares $number))" | bc
+	echo "($(square_of_sum "$number") - $(sum_of_squares "$number"))" | bc
 }
 
 main "$@"
