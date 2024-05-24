@@ -11,13 +11,13 @@ main() {
 
 	case $operation in
 	square_of_sum)
-		square_of_sum $number
+		square_of_sum "$number"
 		;;
 	sum_of_squares)
-		sum_of_squares $number
+		sum_of_squares "$number"
 		;;
 	difference)
-		difference $number
+		difference "$number"
 		;;
 	*)
 		echo "Invalid operation: $operation"
