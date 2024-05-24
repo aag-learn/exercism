@@ -28,12 +28,12 @@ main() {
 
 square_of_sum() {
 	local number=$1
-	echo "(($number + 1) * $number / 2)^2" | bc
+	echo "$((((number + 1) * number / 2) ** 2))"
 }
 
 sum_of_squares() {
 	local number=$1
-	echo "$number * ($number + 1) * (2*$number + 1) / 6" | bc
+	echo "$((number * (number + 1) * (2 * number + 1) / 6))"
 }
 
 difference() {
