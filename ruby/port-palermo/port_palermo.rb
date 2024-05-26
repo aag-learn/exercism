@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Port
-  # TODO: define the 'IDENTIFIER' constant
+  IDENTIFIER = :PALE
 
   def self.get_identifier(city)
-    raise 'Please implement the Port.get_identifier method'
+    city.upcase[0, 4].to_sym
   end
 
   def self.get_terminal(ship_identifier)
-    raise 'Please implement the Port.get_terminal method'
+    ship_identifier =~ /OIL|GAS/ ? :A : :B
   end
 end

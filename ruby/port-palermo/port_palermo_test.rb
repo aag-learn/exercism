@@ -7,15 +7,15 @@ class PortPalermoTest < Minitest::Test
   end
 
   def test_get_identifier_for_hamburg
-    assert_equal :HAMB, Port.get_identifier("Hamburg")
+    assert_equal :HAMB, Port.get_identifier('Hamburg')
   end
 
   def test_get_identifier_for_rome
-    assert_equal :ROME, Port.get_identifier("Rome")
+    assert_equal :ROME, Port.get_identifier('Rome')
   end
 
   def test_get_identifier_for_kiel
-    assert_equal :KIEL, Port.get_identifier("Kiel")
+    assert_equal :KIEL, Port.get_identifier('Kiel')
   end
 
   def test_get_terminal_for_oil
