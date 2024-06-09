@@ -1,0 +1,20 @@
+{
+  "authors": [
+    "ryanplusplus"
+  ],
+  "contributors": [
+    "aarti"
+  ],
+  "files": {
+    "solution": [
+      "minesweeper.lua"
+    ],
+    "test": [
+      "minesweeper_spec.lua"
+    ],
+    "example": [
+      ".meta/example.lua"
+    ]
+  },
+  "blurb": "Add the numbers to a minesweeper board."
+}
