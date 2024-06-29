@@ -87,13 +87,13 @@ class DndCharacterTest < Minitest::Test
 
       attributes.each do |attribute|
         assert_includes allowed_range, character.send(attribute),
-          informative_message % [attribute, allowed_range]
+                        informative_message % [attribute, allowed_range]
       end
 
       informative_message = %q(The character's %s must be %s)
 
       assert_equal expected_hitpoints, character.hitpoints,
-        informative_message % ['hitpoints', expected_hitpoints]
+                   informative_message % ['hitpoints', expected_hitpoints]
     end
   end
 
@@ -111,7 +111,7 @@ class DndCharacterTest < Minitest::Test
         second = character.send(attribute)
 
         assert_equal first, second,
-          informative_message % { attribute:, first:, second: }
+                     informative_message % { attribute:, first:, second: }
       end
     end
     # rubocop:enable Style/FormatString, Style/RedundantPercentQ

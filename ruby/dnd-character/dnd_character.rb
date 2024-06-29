@@ -1,17 +1,30 @@
-=begin
-Write your code for the 'D&D Character' exercise in this file. Make the tests in
-`dnd_character_test.rb` pass.
-
-To get started with TDD, see the `README.md` file in your
-`ruby/dnd-character` directory.
-=end
+# frozen_string_literal: true
 
 class DndCharacter
-  def self.modifier
-    # Your code here
+  BASE_HITPOINTS = 10
+
+  def self.modifier(constitution)
+    (constitution - 10) / 2
   end
 
+  attr_accessor :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma
+
   def initialize
-    # Your code here
+    self.strength = set_attribute
+    self.dexterity = set_attribute
+    self.constitution = set_attribute
+    self.intelligence = set_attribute
+    self.wisdom = set_attribute
+    self.charisma = set_attribute
+  end
+
+  def hitpoints
+    @hitpoints ||= BASE_HITPOINTS + self.class.modifier(constitution)
+  end
+
+  private
+
+  def set_attribute
+    (1..4).map { rand(1..6) }.sort.slice(0, 3).sum
   end
 end
