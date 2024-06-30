@@ -8,21 +8,23 @@ main() {
 # Solution using parameter expansion
 using_bash() {
 	local acronym=""
-	local sentence=${@//[^a-zA-Z0-9\']/ }
-	for word in ${sentence}; do
-		acronym="${acronym}${word:0:1}"
+	local sentence="${1//[^a-zA-Z0-9\']/ }"
+	for word in $sentence; do
+		acronym="$acronym${word:0:1}"
 	done
-	echo ${acronym^^}
+	echo "${acronym^^}"
 }
 
 using_sed() {
-	local words=($(echo "$@" | sed -E "s/[^a-zA-Z0-9']+/ /g"))
+	local words
+	words=$(echo "$@" | sed -E "s/[^a-zA-Z0-9']+/ /g")
 	local result=""
-	for word in "${words[@]}"; do
-		local letter=$(echo "${word:0:1}" | tr 'a-z' 'A-Z')
+	for word in $words; do
+		local letter
+		letter=$(echo "${word:0:1}" | tr '[:lower:]' '[:upper:]')
 		result=${result}${letter}
 	done
-	echo $result
+	echo "$result"
 }
 
 main "$@"
