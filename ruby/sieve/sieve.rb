@@ -1,7 +1,23 @@
-=begin
-Write your code for the 'Sieve' exercise in this file. Make the tests in
-`sieve_test.rb` pass.
+# frozen_string_literal: true
 
-To get started with TDD, see the `README.md` file in your
-`ruby/sieve` directory.
-=end
+class Sieve
+  def initialize(number)
+    @number = number
+  end
+
+  def primes
+    test = (0..@number).to_a
+    primes = []
+    (2..@number).each do |index|
+      next if test[index].zero?
+
+      primes.push index
+      cursor = 1
+      while cursor <= @number
+        test[cursor * index] = 0
+        cursor += 1
+      end
+    end
+    primes
+  end
+end
