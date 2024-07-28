@@ -2,7 +2,7 @@
 
 main() {
   local n=$1
-  [ "$n" == 1 ] && echo "" && exit 0
+  [ "$n" == "1" ] && echo "" && exit 0
   local primes=()
   local numbers=()
   for test in $(seq 2 "$n"); do
