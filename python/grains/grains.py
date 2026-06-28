@@ -18,16 +18,12 @@ def square(number):
     if number < 1 or number > 64:
         raise ValueError("square must be between 1 and 64")
 
-    return 2 ** (number - 1)
+    return 1 << number - 1
 
 
 def total():
     """
-    Returns the totla number of grains on the chess board, which is the sum 
+    Returns the total number of grains on the chess board, which is the sum 
     of grains on all 64 squares.
     """
-    accumulated = 0
-    for cursor in range(1, 65):
-        accumulated += square(cursor)
-
-    return accumulated
+    return (1 << 64) - 1
