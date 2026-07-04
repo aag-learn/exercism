@@ -1,4 +1,18 @@
+"""
+Utility module to test the Collatz conjecture
+"""
+
+
 def steps(number):
+    """
+    Calculates the number of steps of the Collatz conjecture
+    Parameters:
+        number (int): The starting number for the Collatz sequence
+
+    Returns:
+        int: The number of steps to reach 1
+
+    """
     if number <= 0:
         raise ValueError("Only positive integers are allowed")
     current = number
