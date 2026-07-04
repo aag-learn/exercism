@@ -58,11 +58,11 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     generated_power = voltage * current
 
     match generated_power * 100 / theoretical_max_power:
-        case n if n >= 80.0:
+        case value if value >= 80.0:
             return "green"
-        case n if 60.0 <= n < 80.0:
+        case value if 60.0 <= value < 80.0:
             return "orange"
-        case n if 30.0 <= n < 60.0:
+        case value if 30.0 <= value < 60.0:
             return "red"
         case _:
             return "black"
