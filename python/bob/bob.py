@@ -1,4 +1,18 @@
+"""
+Bob utility functions
+"""
+
+
 def response(hey_bob):
+    """
+    Compute Bob response
+
+    Parameters:
+        hey_bob (string): What they said to Bob
+
+    Returns:
+        text: Bob's response
+    """
     remark = hey_bob.strip()
 
     if not remark:
@@ -6,7 +20,7 @@ def response(hey_bob):
 
     is_question = remark.endswith("?")
     has_letters = any(char.isalpha() for char in remark)
-    is_yelling = has_letters and remark.upper() == remark
+    is_yelling = has_letters and remark.isupper()
 
     if is_question and is_yelling:
         return "Calm down, I know what I'm doing!"
