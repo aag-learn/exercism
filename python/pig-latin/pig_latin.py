@@ -5,7 +5,7 @@ Pig latin translation utilities
 import re
 
 RULE_1_PREFIXES = ("a", "e", "i", "o", "u", "xr", "yt")
-RULE_2_PATTERN = r"^([b-df-hj-np-tvwxyz]+)(.*)"
+RULE_2_PATTERN = r"^([b-df-hj-np-tv-z]+)(.*)"
 RULE_3_PATTERN = r"^([b-df-hj-np-tvwxz]*qu)(.*)"
 RULE_4_PATTERN = r"^([b-df-hj-np-tvwxz]+)(y.*)"
 
@@ -17,7 +17,6 @@ def translate(text):
     for word in words:
         if word.startswith(RULE_1_PREFIXES):
             translated_words.append(word + "ay")
-            continue
 
         match = (
             re.match(RULE_3_PATTERN, word)
