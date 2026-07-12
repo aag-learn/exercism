@@ -11,6 +11,9 @@ RULE_4_PATTERN = r"^([b-df-hj-np-tvwxz]+)(y.*)"
 
 
 def translate(text):
+    """
+    Translate text into pig latin
+    """
 
     words = text.split(" ")
     translated_words = []
