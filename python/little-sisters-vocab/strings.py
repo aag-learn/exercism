@@ -35,8 +35,7 @@ def make_word_groups(vocab_words):
         'en :: enclose :: enjoy :: enlighten'.
     """
 
-    prefix = vocab_words[0]
-    words = vocab_words[1:]
+    prefix, *words = vocab_words
 
     results = [prefix] + [f"{prefix}{word}" for word in words]
     return " :: ".join(results)
