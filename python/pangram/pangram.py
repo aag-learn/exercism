@@ -2,7 +2,9 @@
 Pangram tools
 """
 
-import re
+from string import ascii_lowercase
+
+ALPHABET = set(ascii_lowercase)
 
 
 def is_pangram(sentence):
@@ -15,7 +17,5 @@ def is_pangram(sentence):
     Returns:
         boolean: The result of the test
     """
-    if sentence:
-        return len(set(list(re.sub(r"[^a-z]", "", sentence.lower())))) == 26
 
-    return False
+    return ALPHABET.issubset(sentence.lower())
